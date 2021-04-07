@@ -1,5 +1,6 @@
 package dasniko.quarkus.keycloak;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ import static org.hamcrest.Matchers.containsString;
  * @author Niko Köbler, https://www.n-k.de, @dasniko
  */
 @QuarkusTest
+@QuarkusTestResource(KeycloakResource.class)
 public class AdminResourceTest extends AccessTokenProvider {
 
     @Test

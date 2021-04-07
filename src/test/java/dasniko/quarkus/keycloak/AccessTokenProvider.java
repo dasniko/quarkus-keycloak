@@ -13,6 +13,8 @@ public abstract class AccessTokenProvider {
 
     @ConfigProperty(name = "quarkus.oidc.auth-server-url")
     String authServerUrl;
+    @ConfigProperty(name = "quarkus.oidc.client-id")
+    String clientId;
 
     protected String getAccessToken(String username, String password) {
         return given().contentType("application/x-www-form-urlencoded")
@@ -20,8 +22,8 @@ public abstract class AccessTokenProvider {
                         "username", username,
                         "password", password,
                         "grant_type", "password",
-                        "client_id", "quarkus-service",
-                        "client_secret", "8a0f23ab-0d32-46a4-8eec-9c386b7453a5"
+                        "client_id", clientId,
+                        "client_secret", "secret"
                 ))
                 .post(authServerUrl + "/protocol/openid-connect/token")
                 .then().assertThat().statusCode(200)

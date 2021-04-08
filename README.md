@@ -1,54 +1,13 @@
-# quarkus-keycloak project
+# Quarkus & Keycloak
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Securing your service with proper authentication
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+This is the corresponding repository to [my YouTube videos](https://www.youtube.com/c/NikoKöbler?sub_confirmation=1) about securing a [Quarkus](https://quarkus.io) service/app with proper authentication with the help of [Keycloak](https://www.keycloak.org).
 
-## Running the application in dev mode
+### Most basic configuration/implementation with Bearer-only token for REST endpoints
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
-```
+* `UsersResource` - endpoints secured for authenticated users with the `user` role.
+* `AdminResource` - endpoint secured only for authenticated users with the `admin` role.
+* Unit/integration tests for all the endpoints (running Keycloak server in environment necessary).
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
-
-## Packaging and running the application
-
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/quarkus-keycloak-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
-
-## Provided examples
-
-### RESTEasy JAX-RS example
-
-REST is easy peasy with this Hello World RESTEasy resource.
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+[![](http://img.youtube.com/vi/F_VbzqqqRq8/maxresdefault.jpg)](http://www.youtube.com/watch?v=F_VbzqqqRq8 "")

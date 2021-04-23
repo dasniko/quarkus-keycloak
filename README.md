@@ -11,3 +11,9 @@ This is the corresponding repository to [my YouTube videos](https://www.youtube.
 * Unit/integration tests for all the endpoints (running Keycloak server in environment necessary).
 
 [![](http://img.youtube.com/vi/F_VbzqqqRq8/maxresdefault.jpg)](http://www.youtube.com/watch?v=F_VbzqqqRq8 "")
+
+### Proper Integration Testing with `testcontainers-keycloak`
+
+https://github.com/dasniko/testcontainers-keycloak
+
+[![](http://img.youtube.com/vi/FEbIW23RoXk/maxresdefault.jpg)](http://www.youtube.com/watch?v=FEbIW23RoXk "")

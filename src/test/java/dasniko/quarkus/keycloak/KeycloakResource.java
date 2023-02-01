@@ -18,7 +18,10 @@ public class KeycloakResource implements QuarkusTestResourceLifecycleManager {
                 .withRealmImportFile("/quarkus-realm.json");
         keycloak.start();
 
-        return Map.of("quarkus.oidc.auth-server-url", keycloak.getAuthServerUrl() + "/realms/quarkus");
+        return Map.of(
+                "quarkus.oidc.auth-server-url", keycloak.getAuthServerUrl() + "realms/quarkus",
+                "quarkus.oidc.credentials.secret", "secret"
+        );
     }
 
     @Override

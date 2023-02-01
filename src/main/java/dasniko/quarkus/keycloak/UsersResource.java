@@ -2,7 +2,7 @@ package dasniko.quarkus.keycloak;
 
 import io.quarkus.oidc.UserInfo;
 import io.quarkus.security.identity.SecurityIdentity;
-import org.jboss.resteasy.annotations.cache.NoCache;
+import org.jboss.resteasy.reactive.NoCache;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Niko Köbler, https://www.n-k.de, @dasniko
@@ -28,6 +29,7 @@ public class UsersResource {
     @GET
     @Path("me")
     @RolesAllowed("user")
+    @NoCache
     public Map<String, String> me() {
         return Map.of("username", securityIdentity.getPrincipal().getName());
     }
@@ -37,9 +39,7 @@ public class UsersResource {
     @RolesAllowed("user")
     @NoCache
     public Map<String, String> info() {
-        return Map.of(
-            "sub", userInfo.getString("sub"),
-            "email", userInfo.getString("email")
-        );
+        return userInfo.getAllProperties().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
     }
 }

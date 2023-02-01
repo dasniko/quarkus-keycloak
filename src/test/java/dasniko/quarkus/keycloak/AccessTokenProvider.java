@@ -22,6 +22,7 @@ public abstract class AccessTokenProvider {
                         "username", username,
                         "password", password,
                         "grant_type", "password",
+                        "scope", "openid",
                         "client_id", clientId,
                         "client_secret", "secret"
                 ))

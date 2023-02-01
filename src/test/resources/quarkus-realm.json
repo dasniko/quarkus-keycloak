@@ -552,7 +552,8 @@
     "standardFlowEnabled" : true,
     "implicitFlowEnabled" : false,
     "directAccessGrantsEnabled" : true,
-    "serviceAccountsEnabled" : false,
+    "serviceAccountsEnabled" : true,
+    "authorizationServicesEnabled": true,
     "publicClient" : false,
     "frontchannelLogout" : false,
     "protocol" : "openid-connect",
@@ -561,10 +562,13 @@
       "saml.multivalued.roles" : "false",
       "saml.force.post.binding" : "false",
       "saml.encrypt" : "false",
+      "post.logout.redirect.uris": "+",
+      "oauth2.device.authorization.grant.enabled": "false",
       "backchannel.logout.revoke.offline.tokens" : "false",
       "saml.server.signature" : "false",
       "saml.server.signature.keyinfo.ext" : "false",
       "exclude.session.state.from.auth.response" : "false",
+      "oidc.ciba.grant.enabled": "false",
       "backchannel.logout.session.required" : "true",
       "client_credentials.use_refresh_token" : "false",
       "saml_force_name_id_format" : "false",
@@ -578,7 +582,84 @@
     "fullScopeAllowed" : true,
     "nodeReRegistrationTimeout" : -1,
     "defaultClientScopes" : [ "web-origins", "role_list", "roles", "profile", "email" ],
-    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ],
+    "authorizationSettings": {
+      "allowRemoteResourceManagement": true,
+      "policyEnforcementMode": "ENFORCING",
+      "resources": [
+        {
+          "name": "Admin Resource",
+          "ownerManagedAccess": false,
+          "attributes": {},
+          "_id": "d2b855d4-61f6-4159-9b89-b0257ad380c9",
+          "uris": [
+            "/admin/*"
+          ],
+          "icon_uri": ""
+        },
+        {
+          "name": "User Resource",
+          "ownerManagedAccess": false,
+          "attributes": {},
+          "_id": "6f589c2e-160c-487b-8e8c-8141dc441b2a",
+          "uris": [
+            "/users/*"
+          ],
+          "icon_uri": ""
+        }
+      ],
+      "policies": [
+        {
+          "id": "2aaaff19-710d-479d-80b8-ef57e4e258d8",
+          "name": "Any User Policy",
+          "description": "Any user granted with the user role can access something",
+          "type": "role",
+          "logic": "POSITIVE",
+          "decisionStrategy": "UNANIMOUS",
+          "config": {
+            "roles": "[{\"id\":\"user\",\"required\":false}]"
+          }
+        },
+        {
+          "id": "43b4ae35-5fc4-45d7-b0a2-501e772ecb84",
+          "name": "Only Admins",
+          "description": "Only administrators can access",
+          "type": "role",
+          "logic": "POSITIVE",
+          "decisionStrategy": "UNANIMOUS",
+          "config": {
+            "roles": "[{\"id\":\"admin\",\"required\":false}]"
+          }
+        },
+        {
+          "id": "06fc24d8-1f84-46f4-ae7b-e13a505195f1",
+          "name": "User Resource Permission",
+          "description": "",
+          "type": "resource",
+          "logic": "POSITIVE",
+          "decisionStrategy": "UNANIMOUS",
+          "config": {
+            "defaultResourceType": "",
+            "resources": "[\"User Resource\"]",
+            "applyPolicies": "[\"Any User Policy\"]"
+          }
+        },
+        {
+          "id": "d75310e2-8b14-4c88-9148-2fa82220e30b",
+          "name": "Admin Resource Permission",
+          "description": "",
+          "type": "resource",
+          "logic": "POSITIVE",
+          "decisionStrategy": "UNANIMOUS",
+          "config": {
+            "resources": "[\"Admin Resource\"]",
+            "applyPolicies": "[\"Only Admins\"]"
+          }
+        }
+      ],
+      "scopes": [],
+      "decisionStrategy": "UNANIMOUS"
+    }
   }, {
     "id" : "752904b5-c4f5-473e-ba84-7d214afdf792",
     "clientId" : "realm-management",

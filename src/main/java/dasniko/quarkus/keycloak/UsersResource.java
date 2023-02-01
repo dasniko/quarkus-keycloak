@@ -4,7 +4,6 @@ import io.quarkus.oidc.UserInfo;
 import io.quarkus.security.identity.SecurityIdentity;
 import org.jboss.resteasy.reactive.NoCache;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -28,16 +27,16 @@ public class UsersResource {
 
     @GET
     @Path("me")
-    @RolesAllowed("user")
     @NoCache
+    // @RolesAllowed("user")
     public Map<String, String> me() {
         return Map.of("username", securityIdentity.getPrincipal().getName());
     }
 
     @GET
     @Path("info")
-    @RolesAllowed("user")
     @NoCache
+    // @RolesAllowed("user")
     public Map<String, String> info() {
         return userInfo.getAllProperties().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
